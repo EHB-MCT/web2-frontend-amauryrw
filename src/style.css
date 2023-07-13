@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(18, 18, 18);
+
+}
+
+p,
+h1,
+h2,
+form,
+li {
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
+.hello h2 {
+    margin-left: 150px;
+    margin-bottom: 70px;
+}
+
+.login {
+    width: 55%;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+}
+
+#loginform {
+    margin-left: 20px;
+
+}
+
+.hello {
+    margin-top: 70px;
+}
+
+.hello h1 {
+    margin-left: 100px;
+}
+
+#loginform h1 {
+    margin-bottom: 25px;
+
+}
+
+#submit {
+    background-color: #740909;
+    color: white;
+    padding-left: 133px;
+    padding-right: 133px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+
+#register {
+    background-color: white;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.email {
+    margin-bottom: 10px;
+}
+
+.password input {
+    margin-left: 48px;
+    border-color: white;
+    border-radius: 5px;
+    color: white;
+}
+
+.email input {
+    border-color: white;
+    border-radius: 5px;
+    color: white;
+}
+
+.user input {
+    margin-left: 48px;
+    border-color: white;
+    border-radius: 5px;
+    color: white;
+}
+
+.content {
+    margin-left: 100px;
+}
+
+#registerForm {
+    margin-top: 100px;
+    margin-left: 55px;
+}
+
+#registerForm h1 {
+    margin-left: 140px;
+    margin-bottom: 50px;
+}
+
+.password1 {
+    margin-left: 65px;
+    margin-bottom: 10px;
+
+}
+
+.password1 input {
+    border-color: white;
+    border-radius: 5px;
+
+}
+
+
+.email2 {
+    margin-left: 17px;
+    margin-bottom: 10px;
+
+}
+
+.email2 input {
+    border-color: white;
+    border-radius: 5px;
+
+}
+
+.userName {
+    margin-left: 65px;
+    margin-bottom: 10px;
+}
+
+.userName input {
+    border-color: white;
+    border-radius: 5px;
+}
+
+.password2 input {
+    border-color: white;
+    border-radius: 5px;
+
+}
+
+.register {
+    font-family: 'Roboto Mono', monospace;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-left: 50px;
+
+}
+
+.loginBack {
+    font-family: 'Roboto Mono', monospace;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    font-size: small;
+
+}
+
+#buttonLogin {
+    text-decoration: none;
+    font-family: 'Roboto Mono', monospace;
+    background-color: white;
+    color: black;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+#buttonLogin a,
+#buttonCreate a {
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+
+#buttonCreate {
+
+    font-family: 'Roboto Mono', monospace;
+    background-color: white;
+    color: black;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.register a {
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+
+.userName input,
+.email2 input,
+.password1 input,
+.password2 input {
+    color: white;
+}

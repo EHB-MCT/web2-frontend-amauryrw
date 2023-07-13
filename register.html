@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/futustyle.css">
+    <script src="/src/register.js" defer></script>
+    <title>Session 8 - Login/Register</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="/myChallenges.html" class="nav-link">My Challenges</a>
+        </li>
+        <li class="nav-item">
+            <a href="/createChallenge.html" class="nav-link">Create Challenge</a>
+        </li>
+        <li class="nav-item">
+            <a href="/home.html" class="nav-link">Home</a>
+        </li>
+        </ul>
+        <li class="nav-item">
+            <a href="/login.html" class="nav-link">login</a>
+        </li>
+        </ul>
+        <li class="nav-item">
+            <a href="/register.html" class="nav-link">register</a>
+        </li>
+        </ul>
+</nav>
+
+    <br>
+    <form id="registerForm">
+        <h1>Register</h1>
+        <div class="userName">
+            <!--fill in an username-->
+            <label for="inputUsername">Username</label>
+            <input type="name" id="inputUsername">
+        </div>
+        <div class="email2">
+            <!--fill in an email-->
+            <label for="loginEmail">Email address</label>
+            <input type="email" id="registerEmail">
+        </div>
+        <div class="password1">
+            <!--fill in a password-->
+            <label for="loginPassword">Password</label>
+            <input type="password" id="registerPassword">
+        </div>
+        <div class="password2">
+            <!--repeat password-->
+            <label for="InputPassword2">Repeat password</label>
+            <input type="password" id="registerPassword2">
+        </div>
+        <button class="register" type="submit">Create an account</button>
+        <div>
+            <button class="register" type="submit"><a href="/login.html">Return to login
+                    page</a></button>
+        </div>
+    </form>
+
+</body>
+
+</html>
