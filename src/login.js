@@ -20,15 +20,15 @@ function loginUser(e) {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.message === 'Connexion réussie') {
+      if (data.message === 'Successful connection') {
 
-        alert('Connexion réussie !');
+        alert('Successful connection');
       } else {
-        alert('Erreur lors de la connexion : ' + data.message);
+        alert('Error while connecting : ' + data.message);
       }
     })
     .catch(error => {
-      console.error('Erreur lors de la connexion :', error);
-      alert('Une erreur est survenue lors de la connexion');
+      console.error('Error while connecting :', error);
+      alert('An error occurred while logging in');
     });
 }

@@ -11,8 +11,8 @@ async function getAllChallenges() {
         challengesList.appendChild(challengeElement);
       });
     } catch (error) {
-      console.error('Erreur lors de la récupération des défis:', error);
-      alert('Une erreur est survenue lors de la récupération des défis');
+      console.error('Error while retrieving challenges:', error);
+      alert('An error occurred while retrieving challenges');
     }
   }
   
@@ -56,7 +56,7 @@ async function getAllChallenges() {
   
     const userId = localStorage.getItem('userId');
     if (!userId) {
-      console.log('Connectez-vous d\'abord');
+      console.log('Login first please');
       return;
     }
   
@@ -91,8 +91,8 @@ async function getAllChallenges() {
         alert(message);
       }
     } catch (error) {
-      console.error('Erreur lors de la création du défi:', error);
-      alert('Une erreur est survenue lors de la création du défi');
+      console.error('Error creating challenge:', error);
+      alert('An error occurred while creating the challenge');
     }
   }
   
@@ -117,8 +117,8 @@ async function getAllChallenges() {
         myChallengesList.appendChild(challengeElement);
       });
     } catch (error) {
-      console.error('Erreur lors de la récupération des défis de l\'utilisateur:', error);
-      alert('Une erreur est survenue lors de la récupération des défis de l\'utilisateur');
+      console.error('Error retrieving user challenges:', error);
+      alert('An error occurred while retrieving user challenges');
     }
   }
   
@@ -143,8 +143,8 @@ async function getAllChallenges() {
         alert(message);
       }
     } catch (error) {
-      console.error('Erreur lors de la suppression du défi:', error);
-      alert('Une erreur est survenue lors de la suppression du défi');
+      console.error('Error deleting challenge:', error);
+      alert('An error occurred while deleting the challenge');
     }
   }
   

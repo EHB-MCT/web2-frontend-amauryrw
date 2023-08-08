@@ -8,6 +8,7 @@ function registerUser(e) {
   const email = document.getElementById('registerEmail').value;
   const password = document.getElementById('registerPassword').value;
 
+
   const userData = {
     username,
     email,
@@ -23,15 +24,15 @@ function registerUser(e) {
   })
     .then(response => response.json())
     .then(data => {
-      if (data.message === 'Inscription réussie') {
+      if (data.message === 'successful registration') {
         localStorage.setItem('userId', data.userId);
-        alert('Inscription réussie !');
+        alert('Successful registration');
       } else {
-        alert('Erreur lors de l\'inscription : ' + data.message);
+        alert('Error while registering: ' + data.message);
       }
     })
     .catch(error => {
-      console.error('Erreur lors de l\'inscription :', error);
-      alert('Une erreur est survenue lors de l\'inscription');
+      console.error('Error while registering:', error);
+      alert('An error occurred while registering');
     });
 }

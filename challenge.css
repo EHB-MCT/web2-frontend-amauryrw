@@ -72,5 +72,66 @@
   button:hover {
     background-color: #e60000;
   }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+  }
+  
+  .challenges-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .challenge-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 10px;
+  }
+  
+  .challenge-card img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .challenge-card h2 {
+    margin: 10px 0;
+  }
+  
+  .challenge-card p {
+    margin: 0;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .btn-delete,
+  .btn-play {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-delete {
+    background-color: #ff4444;
+    color: #fff;
+  }
+  
+  .btn-play {
+    background-color: #009688;
+    color: #fff;
+  }
+  
   
   
