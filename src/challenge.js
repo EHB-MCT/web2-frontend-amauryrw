@@ -22,8 +22,8 @@ async function getAllChallenges() {
     const challengeElement = document.createElement('div');
     challengeElement.classList.add('challenge');
   
-    const textElement = document.createElement('p');
-    textElement.textContent = `Text: ${challenge.text}`;
+    const textElement = document.createElement('h1');
+    textElement.textContent = ` ${challenge.text}`;
   
     const descriptionElement = document.createElement('p');
     descriptionElement.textContent = `Description: ${challenge.description}`;
@@ -62,42 +62,107 @@ async function getAllChallenges() {
       return;
     }
   
-    const challengeData = {
-      text,
-      description,
-      dataset,
-      picture,
-      result,
-      userId
-    };
-  
     try {
-      const response = await fetch('http://localhost:5000/newChallenges', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(challengeData)
-      });
-  
-      const { message, challengeId } = await response.json();
-  
-      if (response.ok) {
-        alert(`${message} Challenge ID: ${challengeId}`);
-        const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
-        currentChallengeIds.push(challengeId);
-        localStorage.setItem('currentChallengeIds', JSON.stringify(currentChallengeIds));
-        document.getElementById('createChallengeForm').reset();
-        getAllChallenges();
+
+      const unsplashResponse = await fetch(`https://api.unsplash.com/photos/random?query=${picture}&client_id=bhRpal5CnR4RcdLKulIU1xWSkYPHfuKliarmeevfHKs`);
+
+      const unsplashApi = await unsplashResponse.json();
+
+
+
+      if (unsplashResponse.ok) {
+
+          const picture = unsplashApi.urls.regular;
+
+          const altDescription = unsplashApi.alt_description;
+
+
+
+          const challengeData = {
+
+              text,
+
+              description,
+
+              dataset,
+
+              picture,
+
+              altDescription,
+
+              result,
+
+              userId
+
+          };
+
+
+
+          const response = await fetch('http://localhost:5000/newChallenges', {
+
+              method: 'POST',
+
+              headers: {
+
+                  'Content-Type': 'application/json'
+
+              },
+
+              body: JSON.stringify(challengeData)
+
+          });
+
+
+
+          const {
+
+              message,
+
+              challengeId
+
+          } = await response.json();
+
+
+
+          if (response.ok) {
+
+              alert(`${message} Challenge ID: ${challengeId}`);
+
+              const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
+
+              currentChallengeIds.push(challengeId);
+
+              localStorage.setItem('currentChallengeIds', JSON.stringify(currentChallengeIds));
+
+              document.getElementById('create-challenge-form').reset();
+
+              getAllChallenges();
+
+          } else {
+
+              alert(message);
+
+          }
+
       } else {
-        alert(message);
+
+          alert('Error fetching api Unplaash-Amaury');
+
       }
-    } catch (error) {
-      console.error('Error creating challenge:', error);
-      alert('An error occurred while creating the challenge');
-    }
+
+  } catch (error) {
+
+      console.error('Erreur lors de la création du défi:', error);
+
+      alert('Une erreur est survenue lors de la création du défi');
+
   }
-  
+
+}
+
+
+
+
   async function getMyChallenges(userId) {
     try {
       const response = await fetch(`http://localhost:5000/my-challenges?userId=${userId}`);
