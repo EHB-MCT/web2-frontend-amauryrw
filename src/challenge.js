@@ -1,3 +1,5 @@
+
+
 async function getAllChallenges() {
     try {
       const response = await fetch('http://localhost:5000/all-challenges');
@@ -55,7 +57,7 @@ async function getAllChallenges() {
     const result = document.getElementById('challengeAnswer').value;
   
     const userId = localStorage.getItem('userId');
-    if (!userId) {
+    if (!userId) {  
       console.log('Login first please');
       return;
     }

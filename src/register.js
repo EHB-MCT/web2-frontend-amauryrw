@@ -1,5 +1,9 @@
 
 document.getElementById('registerForm').addEventListener('submit', registerUser)
+function displayMessage(message, isError = false) {
+  const messageContainer = document.getElementById('messageContainerReg');
+  messageContainer.innerHTML = `<p class="${isError ? 'error-message' : 'success-message'}">${message}</p>`;
+}
 
 function registerUser(e) {
   e.preventDefault();
@@ -24,15 +28,15 @@ function registerUser(e) {
   })
     .then(response => response.json())
     .then(data => {
-      if (data.message === 'Inscription réussie') {
+      if (data.message === 'Successful registration') {
         localStorage.setItem('userId', data.userId);
-        alert('Successful registration');
+        displayMessage('Successful registration');
       } else {
-        alert('Error while registering: ' + data.message);
+        displayMessage('Error while registering: ' + data.message);
       }
     })
     .catch(error => {
       console.error('Error while registering:', error);
-      alert('An error occurred while registering');
+      displayMessage('An error occurred while registering');
     });
 }

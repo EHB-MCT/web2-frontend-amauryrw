@@ -1,5 +1,10 @@
 document.getElementById('loginForm').addEventListener('submit', loginUser);
 
+function displayMessage(message, isError = false) {
+  const messageContainer = document.getElementById('messageContainerLog');
+  messageContainer.innerHTML = `<p class="${isError ? 'error-message' : 'success-message'}">${message}</p>`;
+}
+
 function loginUser(e) {
   e.preventDefault();
 
@@ -20,15 +25,16 @@ function loginUser(e) {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.message === 'Connexion réussie') {
+      if (data.message === 'Successful connection') {
         localStorage.setItem('userId', data.userId);
-        alert('Successful connection');
+        displayMessage('Successful connection');
+        window.location.href = 'home.html';
       } else {
-        alert('Error while connecting : ' + data.message);
+        displayMessage(`Error while connecting: ${data.message}`, true);
       }
     })
     .catch(error => {
       console.error('Error while connecting :', error);
-      alert('An error occurred while logging in');
+      displayMessage('An error occurred while logging in', true);
     });
 }
