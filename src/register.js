@@ -24,7 +24,7 @@ function registerUser(e) {
   })
     .then(response => response.json())
     .then(data => {
-      if (data.message === 'successful registration') {
+      if (data.message === 'Inscription réussie') {
         localStorage.setItem('userId', data.userId);
         alert('Successful registration');
       } else {

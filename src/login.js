@@ -20,8 +20,8 @@ function loginUser(e) {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.message === 'Successful connection') {
-
+      if (data.message === 'Connexion réussie') {
+        localStorage.setItem('userId', data.userId);
         alert('Successful connection');
       } else {
         alert('Error while connecting : ' + data.message);
