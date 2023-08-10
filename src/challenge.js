@@ -37,12 +37,20 @@ async function getAllChallenges() {
   
     const resultElement = document.createElement('p');
     resultElement.textContent = `Result: ${challenge.result}`;
+
+    const playButton = document.createElement('button');
+    playButton.textContent = 'Play';
+    playButton.addEventListener('click', () => {
+    window.location.href = `/playChallenge.html?challengeId=${challenge.id}`;
+    playChallenge();
+  });
   
     challengeElement.appendChild(textElement);
     challengeElement.appendChild(descriptionElement);
     challengeElement.appendChild(datasetElement);
     challengeElement.appendChild(pictureElement);
     challengeElement.appendChild(resultElement);
+    challengeElement.appendChild(playButton);
   
     return challengeElement;
   }
@@ -68,108 +76,64 @@ async function getAllChallenges() {
 
       const unsplashApi = await unsplashResponse.json();
 
-
-
       if (unsplashResponse.ok) {
-
           const picture = unsplashApi.urls.regular;
-
           const altDescription = unsplashApi.alt_description;
-
-
-
           const challengeData = {
-
               text,
-
               description,
-
               dataset,
-
               picture,
-
               altDescription,
-
               result,
-
               userId
-
           };
 
-
-
           const response = await fetch('http://localhost:5000/newChallenges', {
-
               method: 'POST',
-
               headers: {
-
                   'Content-Type': 'application/json'
-
               },
-
               body: JSON.stringify(challengeData)
-
           });
 
-
-
           const {
-
               message,
-
               challengeId
-
           } = await response.json();
 
-
-
           if (response.ok) {
-
               alert(`${message} Challenge ID: ${challengeId}`);
-
               const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
-
               currentChallengeIds.push(challengeId);
-
               localStorage.setItem('currentChallengeIds', JSON.stringify(currentChallengeIds));
-
               document.getElementById('create-challenge-form').reset();
-
               getAllChallenges();
 
           } else {
-
               alert(message);
-
           }
 
       } else {
-
           alert('Error fetching api Unplaash-Amaury');
-
       }
 
   } catch (error) {
-
       console.error('Erreur lors de la création du défi:', error);
-
-      alert('Une erreur est survenue lors de la création du défi');
-
+      //alert('Une erreur est survenue lors de la création du défi');
   }
-
 }
-
-
-
 
   async function getMyChallenges(userId) {
     try {
       const response = await fetch(`http://localhost:5000/my-challenges?userId=${userId}`);
       const { challenges } = await response.json();
-  
+   
       const myChallengesList = document.getElementById('challengesList');
-      myChallengesList.innerHTML = '';
+      while (myChallengesList.firstChild) {
+       myChallengesList.removeChild(myChallengesList.firstChild);
+}
+
   
       challenges.forEach(challenge => {
         const challengeElement = createChallengeElement(challenge);
@@ -185,9 +149,35 @@ async function getAllChallenges() {
       });
     } catch (error) {
       console.error('Error retrieving user challenges:', error);
-      alert('An error occurred while retrieving user challenges');
+      //alert('An error occurred while retrieving user challenges');
     }
   }
+
+
+  async function playChallenge() {
+    // Récupérer l'ID du challenge à partir de l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const challengeId = urlParams.get('challengeId');
+
+    // Si l'ID du challenge est présent dans l'URL, afficher les détails du challenge
+    if (challengeId) {
+        const challengeDetailsContainer = document.getElementById('challengeDetails');
+
+        // Appeler l'API pour obtenir les détails du challenge en utilisant l'ID
+        fetch(`http://localhost:5000/challenges/${challengeId}`)
+            .then(response => response.json())
+            .then(challenge => {
+                console.log(challenge); // Afficher les détails du challenge dans la console
+                const challengeElement = createChallengeElement(challenge);
+                challengeDetailsContainer.appendChild(challengeElement);
+            })
+            .catch(error => {
+                console.error('Error fetching challenge details:', error);
+                alert('An error occurred while fetching challenge details');
+            });
+    }
+}
+
   
   async function deleteChallenge(challengeId) {
     try {

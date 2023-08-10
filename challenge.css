@@ -138,7 +138,7 @@
 
  
 
-.challenge {
+/* .challenge {
 
   background-color: black;
   
@@ -198,15 +198,53 @@
 
   margin-bottom: 10px;
 
+} */
+.challenge {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 250px; /* Adjust the width as needed */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Title style */
+.challenge h1{
+  font-size: 20px;
+  margin-bottom: 10px;
+  color:purple;
+  
+}
+
+/* Image style */
+.challenge img {
+  width: 100%;
+  max-height: 150px; /* Adjust the height as needed */
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* Question and answer style */
+.challenge p {
+  margin: 5px 0;
+}
+
+/* Dataset style */
+.challenge .dataset {
+  font-style: italic;
+  color: #888;
+}
  
 
 button {
 
-  background-color: #00ff00;
+  background-color: black;
 
-  color: black;
+  color: white;
 
   border: none;
 
@@ -220,7 +258,7 @@ button {
 
   transition: background-color 0.3s;
 
-  font-family: 'Courier New', Courier, monospace;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 
 }
 
@@ -228,11 +266,11 @@ button {
 
 button:hover {
 
-  background-color: purple;
+  background-color: white;
 
   transition: background-color 0.3s;
 
-  color: white;
+  color: black;
 
 }
 
@@ -249,7 +287,7 @@ button:hover {
 .challenge button{
 
  
-
+  margin-bottom: 5px;
 margin-right: 1em;
 
  
@@ -262,5 +300,61 @@ margin-right: 1em;
 
  
 .challenge h1{
+  color: black;
+}
+
+
+.question {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.image-container {
+  text-align: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.dataset {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.answer-container {
+  margin-top: 20px;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  margin-top: 10px;
+  
+  background-color: black;
   color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: white;
+}
+
+.createChallengeForm button{
+  background-color: white;
 }
