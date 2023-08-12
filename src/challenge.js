@@ -1,9 +1,4 @@
 
-"https://web-2-courseprojectaugust-backend.onrender.com/"
-
-
-
-
 async function getAllChallenges() {
     try {
       const response = await fetch('https://web-2-courseprojectaugust-backend.onrender.com/all-challenges');
@@ -106,7 +101,7 @@ async function getAllChallenges() {
           const createChallengeForm = document.getElementById('createChallengeForm');
           const successMessage = document.createElement('p');
           successMessage.textContent = `${message}`;
-          successMessage.classList.add('success-message'); // Add a class for styling
+          successMessage.classList.add('success-message');
           createChallengeForm.parentNode.insertBefore(successMessage, createChallengeForm.nextSibling);
 
           if (response.ok) {
@@ -171,11 +166,9 @@ async function playChallenge() {
         displayChallengeDetails(challenge);
       } else {
         console.error(`Error fetching challenge details: ${response.status}`);
-        //alert('An error occurred while fetching challenge details');
       }
     } catch (error) {
       console.error('Error fetching challenge details:', error);
-      //alert('An error occurred while fetching challenge details');
     }
   }
 }
@@ -265,7 +258,6 @@ document.addEventListener('DOMContentLoaded', playChallenge);
   
       const { message } = await response.json();
       if (response.ok) {
-        //alert(message);
         const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
         const updatedChallengeIds = currentChallengeIds.filter(id => id !== challengeId);
         localStorage.setItem('currentChallengeIds', JSON.stringify(updatedChallengeIds));
