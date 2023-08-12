@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/EHB-MCT/web2-frontend-amauryrw/issues"
   },
-  "homepage": "https://github.com/EHB-MCT/web2-frontend-amauryrw#readme",
+  "homepage": "https://github.com/EHB-MCT/web2-frontend-amauryrw#read",
   "dependencies": {
     "webpack-cli": "^5.1.4"
   }
