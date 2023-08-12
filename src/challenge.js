@@ -39,7 +39,7 @@ async function getAllChallenges() {
     const playButton = document.createElement('button');
     playButton.textContent = 'Play';
     playButton.addEventListener('click', () => {
-      window.location.href = `/playChallenge.html?challengeId=${challenge.challengeId}`;
+      window.location.href = `./playChallenge.html?challengeId=${challenge.challengeId}`;
   });
   
     challengeElement.appendChild(textElement);

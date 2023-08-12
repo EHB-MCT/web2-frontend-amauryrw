@@ -31,8 +31,9 @@ function registerUser(e) {
       if (data.message === 'Successful registration') {
         localStorage.setItem('userId', data.userId);
         displayMessage('Successful registration');
-      } else {
-        displayMessage('Error while registering: ' + data.message);
+      } 
+      else {
+        displayMessage(data.message);
       }
     })
     .catch(error => {
