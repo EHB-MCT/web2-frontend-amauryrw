@@ -1,8 +1,12 @@
 
+"https://web-2-courseprojectaugust-backend.onrender.com/"
+
+
+
 
 async function getAllChallenges() {
     try {
-      const response = await fetch('http://localhost:5000/all-challenges');
+      const response = await fetch('https://web-2-courseprojectaugust-backend.onrender.com/all-challenges');
       const { challenges } = await response.json();
   
       const challengesList = document.getElementById('challengesUser');
@@ -14,7 +18,6 @@ async function getAllChallenges() {
       });
     } catch (error) {
       console.error('Error while retrieving challenges:', error);
-      alert('An error occurred while retrieving challenges');
     }
   }
   
@@ -41,7 +44,6 @@ async function getAllChallenges() {
     const playButton = document.createElement('button');
     playButton.textContent = 'Play';
     playButton.addEventListener('click', () => {
-      //console.log('Challenge ID:', challenge.Id);
       window.location.href = `/playChallenge.html?challengeId=${challenge.challengeId}`;
   });
   
@@ -66,14 +68,13 @@ async function getAllChallenges() {
   
     const userId = localStorage.getItem('userId');
     if (!userId) {  
-      alert('Login first please');
+      //alert('Login first please');
       return;
     }
   
     try {
 
       const unsplashResponse = await fetch(`https://api.unsplash.com/photos/random?query=${picture}&client_id=bhRpal5CnR4RcdLKulIU1xWSkYPHfuKliarmeevfHKs`);
-
       const unsplashApi = await unsplashResponse.json();
 
       if (unsplashResponse.ok) {
@@ -85,29 +86,35 @@ async function getAllChallenges() {
               dataset,
               picture,
               altDescription,
-              result,
+              result, 
               userId
           };
 
-          const response = await fetch('http://localhost:5000/newChallenges', {
+          const response = await fetch('https://web-2-courseprojectaugust-backend.onrender.com/newChallenges', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
               },
               body: JSON.stringify(challengeData)
-          });
+          }); 
 
           const {
               message,
               challengeId
           } = await response.json();
 
+          const createChallengeForm = document.getElementById('createChallengeForm');
+          const successMessage = document.createElement('p');
+          successMessage.textContent = `${message}`;
+          successMessage.classList.add('success-message'); // Add a class for styling
+          createChallengeForm.parentNode.insertBefore(successMessage, createChallengeForm.nextSibling);
+
           if (response.ok) {
-              alert(`${message} Challenge ID: ${challengeId}`);
+              //alert(`${message} Challenge ID: ${challengeId}`);
               const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
               currentChallengeIds.push(challengeId);
               localStorage.setItem('currentChallengeIds', JSON.stringify(currentChallengeIds));
-              document.getElementById('create-challenge-form').reset();
+              createChallengeForm.reset();
               getAllChallenges();
 
           } else {
@@ -152,68 +159,32 @@ async function getAllChallenges() {
   }
 
 
-//   async function playChallenge() {
-//     console.log('playChallenge function started');
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const challengeId = urlParams.get('challengeId');
-//     console.log('Challenge ID:', challengeId);
-
-//     if (challengeId) {
-//         const challengeDetailsContainer = document.getElementById('challengeDetails');
-
-//         fetch(`http://localhost:5000/challenges/${challengeId}`)
-//             .then(response => response.json())
-//             .then(challenge => {  
-//                 console.log(challenge); 
-//                 const challengeElement = createChallengeElement(challenge);
-//                 challengeDetailsContainer.appendChild(challengeElement);
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching challenge details:', error);
-//                 alert('An error occurred while fetching challenge details');
-//             });
-//     }
-// }
-
 async function playChallenge() {
   const urlParams = new URLSearchParams(window.location.search);
   const challengeId = urlParams.get('challengeId'); 
 
   if (challengeId) {
     try {
-      const response = await fetch(`http://localhost:5000/challenges/${challengeId}`);
+      const response = await fetch(`https://web-2-courseprojectaugust-backend.onrender.com/challenges/${challengeId}`);
       if (response.ok) {
         const challenge = await response.json();
         displayChallengeDetails(challenge);
       } else {
         console.error(`Error fetching challenge details: ${response.status}`);
-        alert('An error occurred while fetching challenge details');
+        //alert('An error occurred while fetching challenge details');
       }
     } catch (error) {
       console.error('Error fetching challenge details:', error);
-      alert('An error occurred while fetching challenge details');
+      //alert('An error occurred while fetching challenge details');
     }
   }
 }
 
-// function displayChallengeDetails(challenge) {
-//   const challengeDetailsContainer = document.getElementById('challengeDetails');
-//   const challengeDetailElement = createChallengeDetailElement(challenge);
-//   challengeDetailsContainer.appendChild(challengeDetailElement);
-// }
-
 function displayChallengeDetails(challenge) {
   const challengeDetailContainer = document.getElementById('challengeDetailsContainer');
-
-
   challengeDetailContainer.innerHTML = '';
-
- 
   const challengeDetailElement = createChallengeDetailElement(challenge);
-
- 
   challengeDetailContainer.appendChild(challengeDetailElement);
-
 
   const responseForm = challengeDetailElement.querySelector('#responseForm');
   const resultMessage = challengeDetailElement.querySelector('#resultMessage');
@@ -237,6 +208,9 @@ function createChallengeDetailElement(challenge) {
   const questionElement = document.createElement('h1');
   questionElement.textContent = challenge.text;
 
+  const descriptionElement = document.createElement('p');
+  descriptionElement.textContent = `Description: ${challenge.description}`;
+
   const imageContainer = document.createElement('div');
   imageContainer.classList.add('image-container');
   const challengeImage = document.createElement('img');
@@ -245,11 +219,13 @@ function createChallengeDetailElement(challenge) {
   imageContainer.appendChild(challengeImage);
 
   const datasetElement = document.createElement('p');
-  datasetElement.textContent = `Dataset: ${challenge.dataset}`;
+datasetElement.textContent = `Dataset: ${JSON.stringify(challenge.dataset, null, 2)}`; 
+datasetElement.classList.add('json-dataset'); 
 
   const responseForm = document.createElement('form');
   responseForm.id = 'responseForm';
   const responseLabel = document.createElement('label');
+  responseLabel.classList.add('response-label');
   responseLabel.for = 'userResponse';
   responseLabel.textContent = 'Your Response:';
   const responseInput = document.createElement('input');
@@ -269,6 +245,7 @@ function createChallengeDetailElement(challenge) {
   resultMessage.id = 'resultMessage';
 
   challengeDetailContainer.appendChild(questionElement);
+  challengeDetailContainer.appendChild(descriptionElement);
   challengeDetailContainer.appendChild(imageContainer);
   challengeDetailContainer.appendChild(datasetElement);
   challengeDetailContainer.appendChild(responseForm);
@@ -277,17 +254,18 @@ function createChallengeDetailElement(challenge) {
   return challengeDetailContainer;
 }
 
+
 document.addEventListener('DOMContentLoaded', playChallenge);
 
   async function deleteChallenge(challengeId) {
     try {
-      const response = await fetch(`http://localhost:5000/deleteChallenge/${challengeId}`, {
+      const response = await fetch(`https://web-2-courseprojectaugust-backend.onrender.com/deleteChallenge/${challengeId}`, {
         method: 'DELETE'
       });
   
       const { message } = await response.json();
       if (response.ok) {
-        alert(message);
+        //alert(message);
         const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
         const updatedChallengeIds = currentChallengeIds.filter(id => id !== challengeId);
         localStorage.setItem('currentChallengeIds', JSON.stringify(updatedChallengeIds));
@@ -295,12 +273,9 @@ document.addEventListener('DOMContentLoaded', playChallenge);
         if (userId) {
           getMyChallenges(userId);
         }
-      } else {
-        alert(message);
       }
     } catch (error) {
       console.error('Error deleting challenge:', error);
-      alert('An error occurred while deleting the challenge');
     }
   }
   
