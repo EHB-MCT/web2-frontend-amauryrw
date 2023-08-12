@@ -41,8 +41,8 @@ async function getAllChallenges() {
     const playButton = document.createElement('button');
     playButton.textContent = 'Play';
     playButton.addEventListener('click', () => {
-    window.location.href = `/playChallenge.html?challengeId=${challenge.id}`;
-    playChallenge();
+      //console.log('Challenge ID:', challenge.Id);
+      window.location.href = `/playChallenge.html?challengeId=${challenge.challengeId}`;
   });
   
     challengeElement.appendChild(textElement);
@@ -66,7 +66,7 @@ async function getAllChallenges() {
   
     const userId = localStorage.getItem('userId');
     if (!userId) {  
-      console.log('Login first please');
+      alert('Login first please');
       return;
     }
   
@@ -120,7 +120,6 @@ async function getAllChallenges() {
 
   } catch (error) {
       console.error('Erreur lors de la création du défi:', error);
-      //alert('Une erreur est survenue lors de la création du défi');
   }
 }
 
@@ -149,36 +148,137 @@ async function getAllChallenges() {
       });
     } catch (error) {
       console.error('Error retrieving user challenges:', error);
-      //alert('An error occurred while retrieving user challenges');
     }
   }
 
 
-  async function playChallenge() {
-    // Récupérer l'ID du challenge à partir de l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const challengeId = urlParams.get('challengeId');
+//   async function playChallenge() {
+//     console.log('playChallenge function started');
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const challengeId = urlParams.get('challengeId');
+//     console.log('Challenge ID:', challengeId);
 
-    // Si l'ID du challenge est présent dans l'URL, afficher les détails du challenge
-    if (challengeId) {
-        const challengeDetailsContainer = document.getElementById('challengeDetails');
+//     if (challengeId) {
+//         const challengeDetailsContainer = document.getElementById('challengeDetails');
 
-        // Appeler l'API pour obtenir les détails du challenge en utilisant l'ID
-        fetch(`http://localhost:5000/challenges/${challengeId}`)
-            .then(response => response.json())
-            .then(challenge => {
-                console.log(challenge); // Afficher les détails du challenge dans la console
-                const challengeElement = createChallengeElement(challenge);
-                challengeDetailsContainer.appendChild(challengeElement);
-            })
-            .catch(error => {
-                console.error('Error fetching challenge details:', error);
-                alert('An error occurred while fetching challenge details');
-            });
+//         fetch(`http://localhost:5000/challenges/${challengeId}`)
+//             .then(response => response.json())
+//             .then(challenge => {  
+//                 console.log(challenge); 
+//                 const challengeElement = createChallengeElement(challenge);
+//                 challengeDetailsContainer.appendChild(challengeElement);
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching challenge details:', error);
+//                 alert('An error occurred while fetching challenge details');
+//             });
+//     }
+// }
+
+async function playChallenge() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const challengeId = urlParams.get('challengeId'); 
+
+  if (challengeId) {
+    try {
+      const response = await fetch(`http://localhost:5000/challenges/${challengeId}`);
+      if (response.ok) {
+        const challenge = await response.json();
+        displayChallengeDetails(challenge);
+      } else {
+        console.error(`Error fetching challenge details: ${response.status}`);
+        alert('An error occurred while fetching challenge details');
+      }
+    } catch (error) {
+      console.error('Error fetching challenge details:', error);
+      alert('An error occurred while fetching challenge details');
     }
+  }
 }
 
-  
+// function displayChallengeDetails(challenge) {
+//   const challengeDetailsContainer = document.getElementById('challengeDetails');
+//   const challengeDetailElement = createChallengeDetailElement(challenge);
+//   challengeDetailsContainer.appendChild(challengeDetailElement);
+// }
+
+function displayChallengeDetails(challenge) {
+  const challengeDetailContainer = document.getElementById('challengeDetailsContainer');
+
+
+  challengeDetailContainer.innerHTML = '';
+
+ 
+  const challengeDetailElement = createChallengeDetailElement(challenge);
+
+ 
+  challengeDetailContainer.appendChild(challengeDetailElement);
+
+
+  const responseForm = challengeDetailElement.querySelector('#responseForm');
+  const resultMessage = challengeDetailElement.querySelector('#resultMessage');
+
+  responseForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const userResponse = responseForm.querySelector('#userResponse').value;
+
+    if (userResponse === challenge.result) {
+      resultMessage.textContent = 'Correct!';
+    } else {
+      resultMessage.textContent = 'Incorrect. Please try again.';
+    }
+  });
+}
+
+function createChallengeDetailElement(challenge) {
+  const challengeDetailContainer = document.createElement('div');
+  challengeDetailContainer.classList.add('challenge-detail');
+
+  const questionElement = document.createElement('h1');
+  questionElement.textContent = challenge.text;
+
+  const imageContainer = document.createElement('div');
+  imageContainer.classList.add('image-container');
+  const challengeImage = document.createElement('img');
+  challengeImage.src = challenge.picture;
+  challengeImage.alt = 'Challenge Image';
+  imageContainer.appendChild(challengeImage);
+
+  const datasetElement = document.createElement('p');
+  datasetElement.textContent = `Dataset: ${challenge.dataset}`;
+
+  const responseForm = document.createElement('form');
+  responseForm.id = 'responseForm';
+  const responseLabel = document.createElement('label');
+  responseLabel.for = 'userResponse';
+  responseLabel.textContent = 'Your Response:';
+  const responseInput = document.createElement('input');
+  responseInput.type = 'text';
+  responseInput.id = 'userResponse';
+  responseInput.classList.add('answer-input');
+  responseInput.required = true;
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.classList.add('submit-button');
+  submitButton.textContent = 'Submit';
+  responseForm.appendChild(responseLabel);
+  responseForm.appendChild(responseInput);
+  responseForm.appendChild(submitButton);
+
+  const resultMessage = document.createElement('p');
+  resultMessage.id = 'resultMessage';
+
+  challengeDetailContainer.appendChild(questionElement);
+  challengeDetailContainer.appendChild(imageContainer);
+  challengeDetailContainer.appendChild(datasetElement);
+  challengeDetailContainer.appendChild(responseForm);
+  challengeDetailContainer.appendChild(resultMessage);
+
+  return challengeDetailContainer;
+}
+
+document.addEventListener('DOMContentLoaded', playChallenge);
+
   async function deleteChallenge(challengeId) {
     try {
       const response = await fetch(`http://localhost:5000/deleteChallenge/${challengeId}`, {
@@ -186,7 +286,6 @@ async function getAllChallenges() {
       });
   
       const { message } = await response.json();
-  
       if (response.ok) {
         alert(message);
         const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
@@ -206,28 +305,27 @@ async function getAllChallenges() {
   }
   
   document.addEventListener('DOMContentLoaded', async () => {
-  const userId = localStorage.getItem('userId');
-  if (userId) {
-    getMyChallenges(userId);
-  }
-
-  const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
-  await Promise.all(
-    currentChallengeIds.map(async challengeId => {
-      try {
-        const response = await fetch(`http://localhost:5000/challenges/${challengeId}`);
-        if (response.ok) {
-          const challenge = await response.json();
-          const challengeElement = createChallengeElement(challenge);
-          document.getElementById('challengesUser').appendChild(challengeElement);
-        } else {
-          console.error(`Error fetching challenge ${challengeId}: ${response.status}`);
-        }
-      } catch (error) {
-        console.error(`Error fetching challenge ${challengeId}: ${error}`);
-      }
-    })
-  );
-});
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      getMyChallenges(userId);
+    }
   
-  document.getElementById('createChallengeForm').addEventListener('submit', createChallenge);
+    const currentChallengeIds = JSON.parse(localStorage.getItem('currentChallengeIds')) || [];
+    await Promise.all(
+      currentChallengeIds.map(async challengeId => {
+        try {
+          const response = await fetch(`http://localhost:5000/challenges/${challengeId}`);
+          if (response.ok) {
+            const challenge = await response.json();
+            const challengeElement = createChallengeElement(challenge);
+            document.getElementById('challengesUser').appendChild(challengeElement);
+          } else {
+            console.error(`Error fetching challenge ${challengeId}: ${response.status}`);
+          }
+        } catch (error) {
+          console.error(`Error fetching challenge ${challengeId}: ${error}`);
+        }
+      })
+    );
+    document.getElementById('createChallengeForm').addEventListener('submit', createChallenge);
+  });
