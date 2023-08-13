@@ -127,7 +127,7 @@ async function getAllChallenges() {
 
   async function getMyChallenges(userId) {
     try {
-      const response = await fetch(`http://localhost:5000/my-challenges?userId=${userId}`);
+      const response = await fetch(`https://web-2-courseprojectaugust-backend.onrender.com/my-challenges?userId=${userId}`);
       const { challenges } = await response.json();
    
       const myChallengesList = document.getElementById('challengesList');
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', playChallenge);
     await Promise.all(
       currentChallengeIds.map(async challengeId => {
         try {
-          const response = await fetch(`http://localhost:5000/challenges/${challengeId}`);
+          const response = await fetch(`https://web-2-courseprojectaugust-backend.onrender.com/challenges/${challengeId}`);
           if (response.ok) {
             const challenge = await response.json();
             const challengeElement = createChallengeElement(challenge);
