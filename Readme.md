@@ -10,6 +10,11 @@ Here are a few login credentials that work: email = bob@bob, password = bob; ema
 backend = https://web-2-courseprojectaugust-backend.onrender.com
 
 
+# Link wireframe
+
+https://xd.adobe.com/view/9af6146f-07e7-448e-9501-fa0a715719c0-cfa5/
+
+
 # Improvements
 
 I have started to change the structure of my website, opting for a simpler layout. In December, I managed to finish only the login system, but not at all the routes for the challenges. I then decided to begin creating the routes to retrieve, create, delete, publish, etc., the challenges.
