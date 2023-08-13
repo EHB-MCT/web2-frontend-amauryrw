@@ -28,7 +28,7 @@ function loginUser(e) {
       if (data.message === 'Successful connection') {
         localStorage.setItem('userId', data.userId);
         displayMessage('Successful connection');
-        window.location.href = 'home.html';
+        window.location.href = 'index.html';
       } else {
         displayMessage(`Error while connecting: ${data.message}`, true);
       }
