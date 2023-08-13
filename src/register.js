@@ -19,7 +19,7 @@ function registerUser(e) {
     password
   };
 
-  fetch('http://localhost:5000/register', {
+  fetch('https://web-2-courseprojectaugust-backend.onrender.com/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
