@@ -91,6 +91,17 @@ body {
     color: green;
     font-weight: bold;
   }
+
+  #loginButton{
+    background-color: transparent;
+    border: 2px solid #ff0000;
+    border-radius: 4px;
+  }
+
+ button #LoginButton:hover{
+  background-color:#cc0000;
+    color:white;
+ }
  
   
   
