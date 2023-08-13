@@ -2,6 +2,10 @@
 
 frontend =  https://ehb-mct.github.io/web2-frontend-amauryrw/
  
+(via the frontend link, you will be immediately logged into the site.
+
+
+Here are a few login credentials that work: email = bob@bob, password = bob; email = test@test, password = test)
 
 backend = https://web-2-courseprojectaugust-backend.onrender.com
 
