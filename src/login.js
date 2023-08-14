@@ -16,7 +16,7 @@ function loginUser(e) {
     password
   };
 
-  fetch('http://localhost:5000/login', {
+  fetch('https://web-2-courseprojectaugust-backend.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
